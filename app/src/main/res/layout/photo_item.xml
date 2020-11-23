@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="image"
+            type="org.company.annamedvedieva.imagebrowser.data.ImageItem" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/photo_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:imageUrl="@{image.imageUrl}" />
+
+        <ImageButton
+            android:id="@+id/like_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignEnd="@+id/photo_image"
+            android:layout_alignBottom="@+id/photo_image"
+            android:layout_margin="4dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/round_corners"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_favorite_white_24"
+            android:visibility="@{image.isFavourite ? View.VISIBLE : View.GONE}" />
+
+    </RelativeLayout>
+</layout>
