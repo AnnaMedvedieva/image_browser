@@ -10,11 +10,10 @@ import org.company.annamedvedieva.imagebrowser.data.ImageItem
 import org.company.annamedvedieva.imagebrowser.network.BrowserApi
 import org.company.annamedvedieva.imagebrowser.network.BrowserApiStatus
 
-private const val TAG = "HomeViewModel"
 const val DEFAULT_COUNT_VALUE = 30
+private const val TAG = "HomeViewModel"
 
 class HomeViewModel : ViewModel() {
-
 
     private val _imageList = MutableLiveData<List<ImageItem>>()
     val imageList: LiveData<List<ImageItem>>
@@ -27,7 +26,6 @@ class HomeViewModel : ViewModel() {
 
     init {
         loadRandomImagesList()
-        Log.d(org.company.annamedvedieva.imagebrowser.ui.home.TAG, _status.value.toString())
     }
 
     private fun loadRandomImagesList() {
@@ -36,12 +34,13 @@ class HomeViewModel : ViewModel() {
             try {
                 _imageList.value = BrowserApi.retrofitService.getRandomPictures(DEFAULT_COUNT_VALUE)
                 _status.value = BrowserApiStatus.DONE
-                Log.d(org.company.annamedvedieva.imagebrowser.ui.home.TAG, _status.value.toString())
+                Log.d(TAG, "loadRandomImagesList: ${_status.value.toString()}")
+
 
             } catch (e: Exception) {
                 _status.value = BrowserApiStatus.ERROR
                 _imageList.value = ArrayList()
-                Log.d(org.company.annamedvedieva.imagebrowser.ui.home.TAG, _status.value.toString())
+                Log.d(TAG, "loadRandomImagesList: ${_status.value.toString()}")
 
             }
         }

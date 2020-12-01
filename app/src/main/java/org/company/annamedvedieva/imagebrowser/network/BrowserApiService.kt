@@ -6,6 +6,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import org.company.annamedvedieva.imagebrowser.UnsplashApiKey
 import org.company.annamedvedieva.imagebrowser.data.ImageItem
+import org.company.annamedvedieva.imagebrowser.data.SearchResults
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -32,6 +33,13 @@ private val retrofit = Retrofit.Builder()
 interface BrowserApiService {
     @GET("photos/random")
     suspend fun getRandomPictures(@Query("count") count: Int): List<ImageItem>
+
+    @GET("search/photos")
+    suspend fun getSearchResults(
+        @Query("query") searchQuery: String,
+        @Query("per_page") photosPerPage: Int
+    ): SearchResults
+
 }
 
 

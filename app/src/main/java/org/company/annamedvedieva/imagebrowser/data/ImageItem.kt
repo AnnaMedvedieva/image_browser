@@ -25,4 +25,9 @@ data class ImageUrls(
     var regularSize: String
 )
 
+data class SearchResults(
+    @Json(name = "results")
+    var results: List<ImageItem>
+)
+
 
