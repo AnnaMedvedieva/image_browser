@@ -1,9 +1,6 @@
 package org.company.annamedvedieva.imagebrowser.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.squareup.moshi.Json
 
 @Entity(tableName = "images_table")
@@ -11,7 +8,7 @@ data class ImageItem(
     @PrimaryKey
     @Json(name = "id")
     var id: String,
-    @ColumnInfo(name = "image_url")
+    @Embedded
     @Json(name = "urls")
     var imageUrl: ImageUrls,
     @ColumnInfo(name = "is_favourite")
@@ -19,8 +16,10 @@ data class ImageItem(
 )
 
 data class ImageUrls(
+    @ColumnInfo(name = "small")
     @Json(name = "small")
     var smallSize: String,
+    @ColumnInfo(name = "regular")
     @Json(name = "regular")
     var regularSize: String
 )

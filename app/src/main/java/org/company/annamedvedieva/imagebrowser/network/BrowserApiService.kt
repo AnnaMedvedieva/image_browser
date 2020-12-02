@@ -37,7 +37,8 @@ interface BrowserApiService {
     @GET("search/photos")
     suspend fun getSearchResults(
         @Query("query") searchQuery: String,
-        @Query("per_page") photosPerPage: Int
+        @Query("per_page") photosPerPage: Int,
+        @Query("page") pageNumber: Int
     ): SearchResults
 
 }
