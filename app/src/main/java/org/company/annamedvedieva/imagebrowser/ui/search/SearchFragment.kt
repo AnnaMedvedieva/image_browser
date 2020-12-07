@@ -6,18 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.iammert.library.ui.multisearchviewlib.MultiSearchView
+import dagger.hilt.android.AndroidEntryPoint
 import org.company.annamedvedieva.imagebrowser.databinding.FragmentSearchBinding
 import org.company.annamedvedieva.imagebrowser.ui.ImageGridAdapter
 import kotlin.math.log
 
 private const val TAG = "SearchFragment"
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
 
-    private lateinit var searchViewModel: SearchViewModel
+    private val searchViewModel: SearchViewModel by viewModels()
     private var searchQueries: ArrayList<CharSequence> = ArrayList()
 
 
@@ -28,8 +31,6 @@ class SearchFragment : Fragment() {
     ): View? {
 
         val binding = FragmentSearchBinding.inflate(inflater)
-
-        searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         binding.searchViewModel = searchViewModel
 

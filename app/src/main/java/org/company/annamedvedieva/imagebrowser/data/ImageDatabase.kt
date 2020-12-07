@@ -9,21 +9,4 @@ import androidx.room.RoomDatabase
 abstract class ImageDatabase : RoomDatabase() {
     abstract fun imageDao(): ImageDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: ImageDatabase? = null
-
-        fun getDatabase(context: Context): ImageDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    ImageDatabase::class.java,
-                    "image_database"
-                ).build()
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
-
 }

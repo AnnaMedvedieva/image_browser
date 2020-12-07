@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import org.company.annamedvedieva.imagebrowser.databinding.FragmentHomeBinding
 import org.company.annamedvedieva.imagebrowser.ui.ImageGridAdapter
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,8 +23,6 @@ class HomeFragment : Fragment() {
     ): View? {
 
         val binding = FragmentHomeBinding.inflate(inflater)
-
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         binding.viewmodel = homeViewModel
 

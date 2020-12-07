@@ -1,19 +1,21 @@
 package org.company.annamedvedieva.imagebrowser.ui.home
 
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.company.annamedvedieva.imagebrowser.data.ImageItem
+import org.company.annamedvedieva.imagebrowser.data.ImageRepository
 import org.company.annamedvedieva.imagebrowser.network.BrowserApi
 import org.company.annamedvedieva.imagebrowser.network.BrowserApiStatus
 
 const val DEFAULT_COUNT_VALUE = 30
 private const val TAG = "HomeViewModel"
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel @ViewModelInject constructor(repository: ImageRepository) : ViewModel() {
 
     private val _imageList = MutableLiveData<List<ImageItem>>()
     val imageList: LiveData<List<ImageItem>>

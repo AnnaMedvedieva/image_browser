@@ -1,8 +1,9 @@
 package org.company.annamedvedieva.imagebrowser.data
 
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ImageRepository(private val imageDao: ImageDao) {
+class ImageRepository @Inject constructor(private val imageDao: ImageDao) {
 
     suspend fun insertImage(image: ImageItem) {
         imageDao.insertImage(image)
