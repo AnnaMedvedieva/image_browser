@@ -21,10 +21,15 @@ class HomeViewModel @ViewModelInject constructor(repository: ImageRepository) : 
     val imageList: LiveData<List<ImageItem>>
         get() = _imageList
 
-    private val _status = MutableLiveData<BrowserApiStatus>()
+    val imageRepository = repository
 
+    private val _status = MutableLiveData<BrowserApiStatus>()
     val status: LiveData<BrowserApiStatus>
         get() = _status
+
+    private val _selectedPicture = MutableLiveData<ImageItem>()
+    val selectedPicture: LiveData<ImageItem>
+        get() = _selectedPicture
 
     init {
         loadRandomImagesList()
@@ -46,8 +51,29 @@ class HomeViewModel @ViewModelInject constructor(repository: ImageRepository) : 
 
             }
         }
+    }
 
+    fun navigateToImageDetails(image: ImageItem) {
+        _selectedPicture.value = image
+        insertImage(image)
+    }
 
+    fun doneNavigating() {
+        _selectedPicture.value = null
+    }
+
+    fun insertImage(image: ImageItem) {
+        viewModelScope.launch {
+            image.isFavourite = true
+            imageRepository.insertImage(image)
+        }
+    }
+
+    private fun deleteImage(image: ImageItem) {
+        viewModelScope.launch {
+            image.isFavourite = false
+            imageRepository.deleteImage(image)
+        }
     }
 
 //     private fun loadRandomImagesList(){

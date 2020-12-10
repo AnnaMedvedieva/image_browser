@@ -40,7 +40,6 @@ interface BrowserApiService {
         @Query("per_page") photosPerPage: Int,
         @Query("page") pageNumber: Int
     ): SearchResults
-
 }
 
 

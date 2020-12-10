@@ -7,6 +7,7 @@
         <variable
             name="viewmodel"
             type="org.company.annamedvedieva.imagebrowser.ui.home.HomeViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

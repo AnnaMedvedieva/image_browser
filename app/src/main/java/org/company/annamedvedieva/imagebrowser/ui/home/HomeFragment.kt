@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.company.annamedvedieva.imagebrowser.databinding.FragmentHomeBinding
 import org.company.annamedvedieva.imagebrowser.ui.ImageGridAdapter
@@ -26,7 +26,17 @@ class HomeFragment : Fragment() {
 
         binding.viewmodel = homeViewModel
 
-        binding.imageRecyclerView.adapter = ImageGridAdapter()
+        binding.imageRecyclerView.adapter = ImageGridAdapter(ImageGridAdapter.OnClickListener {
+            homeViewModel.navigateToImageDetails(it)
+        })
+
+        homeViewModel.selectedPicture.observe(viewLifecycleOwner, {
+            if (it != null) {
+                this.findNavController()
+                    .navigate(HomeFragmentDirections.actionNavigationHomeToDetailsFragment(it.id))
+                homeViewModel.doneNavigating()
+            }
+        })
 
         binding.lifecycleOwner = this
 

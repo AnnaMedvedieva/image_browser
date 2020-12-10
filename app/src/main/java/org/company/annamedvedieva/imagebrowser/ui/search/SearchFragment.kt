@@ -34,7 +34,9 @@ class SearchFragment : Fragment() {
 
         binding.searchViewModel = searchViewModel
 
-        binding.searchRecyclerView.adapter = ImageGridAdapter()
+        binding.searchRecyclerView.adapter = ImageGridAdapter(ImageGridAdapter.OnClickListener {
+
+        })
 
         binding.lifecycleOwner = this
 

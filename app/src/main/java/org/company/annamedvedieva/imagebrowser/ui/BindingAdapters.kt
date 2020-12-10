@@ -17,6 +17,6 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<ImageItem>?) {
 fun bindImage(imageView: ImageView, url: String?) {
     Glide.with(imageView.context)
         .load(url)
-        .placeholder(R.drawable.test)
+        .placeholder(R.drawable.image_loading)
         .into(imageView)
 }

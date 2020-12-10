@@ -30,7 +30,9 @@ class FavouritesFragment : Fragment() {
 
         binding.viewmodel = favouritesViewModel
 
-        binding.imageRecyclerView.adapter = ImageGridAdapter()
+        binding.imageRecyclerView.adapter = ImageGridAdapter(ImageGridAdapter.OnClickListener {
+
+        })
 
         binding.lifecycleOwner = this
 

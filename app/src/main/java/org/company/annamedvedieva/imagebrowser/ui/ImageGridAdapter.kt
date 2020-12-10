@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.company.annamedvedieva.imagebrowser.data.ImageItem
 import org.company.annamedvedieva.imagebrowser.databinding.PhotoItemBinding
 
-class ImageGridAdapter :
+class ImageGridAdapter(private val clickListener: OnClickListener) :
     ListAdapter<ImageItem, ImageGridAdapter.ImageItemViewHolder>(DiffCallback) {
 
     class ImageItemViewHolder(private var binding: PhotoItemBinding) :
@@ -37,8 +37,17 @@ class ImageGridAdapter :
 
     override fun onBindViewHolder(holder: ImageItemViewHolder, position: Int) {
         val imageItem = getItem(position)
+
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(imageItem)
+        }
         holder.bind(imageItem)
     }
+
+    class OnClickListener(val clickListener: (image: ImageItem) -> Unit) {
+        fun onClick(image: ImageItem) = clickListener(image)
+    }
 }
+
 
 

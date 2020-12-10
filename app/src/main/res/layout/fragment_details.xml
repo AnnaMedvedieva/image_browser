@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="org.company.annamedvedieva.imagebrowser.ui.details.DetailsViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        tools:context=".ui.details.DetailsFragment">
+
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="6dp"
+            android:adjustViewBounds="true"
+            android:backgroundTint="@color/white"
+            android:onClick="@{() -> viewmodel.onCloseButtonClick()}"
+            android:padding="2dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_close_24" />
+
+        <ImageView
+            android:id="@+id/detail_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginTop="60dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/test"
+            app:imageUrl="@{viewmodel.image.imageUrl.smallSize}" />
+
+
+        <ImageButton
+            android:id="@+id/like_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignEnd="@+id/detail_image"
+            android:layout_alignBottom="@+id/detail_image"
+            android:layout_margin="6dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/round_corners"
+            android:onClick="@{() -> viewmodel.onLikeButtonClick()}"
+            android:padding="2dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_favorite_24" />
+
+    </RelativeLayout>
+</layout>
