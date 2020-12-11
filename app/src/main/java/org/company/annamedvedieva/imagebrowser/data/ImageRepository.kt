@@ -1,6 +1,5 @@
 package org.company.annamedvedieva.imagebrowser.data
 
-import android.media.Image
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -20,6 +19,10 @@ class ImageRepository @Inject constructor(private val imageDao: ImageDao) {
 
     fun getImageById(imageId: String): Flow<ImageItem> {
         return imageDao.getImageById(imageId)
+    }
+
+    suspend fun updateImage(image: ImageItem) = withContext(Dispatchers.IO) {
+        imageDao.updateImage(image)
     }
 
 }

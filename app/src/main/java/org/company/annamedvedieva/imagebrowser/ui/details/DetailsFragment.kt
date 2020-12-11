@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,12 +27,18 @@ class DetailsFragment : Fragment() {
         binding.viewmodel = detailsViewModel
 
         val imageId = DetailsFragmentArgs.fromBundle(requireArguments()).imageId
+        detailsViewModel.loadImage(imageId)
+        binding.lifecycleOwner = this
 
         detailsViewModel.navigateBack.observe(viewLifecycleOwner, {
             if (it == true) {
                 this.findNavController().popBackStack()
                 detailsViewModel.navigationDone()
             }
+        })
+
+        detailsViewModel.image.observe(viewLifecycleOwner, {
+            detailsViewModel.setLikeButton(it)
         })
 
         detailsViewModel.likeButton.observe(viewLifecycleOwner, {
@@ -41,12 +48,11 @@ class DetailsFragment : Fragment() {
 
         })
 
-        detailsViewModel.loadImage(imageId)
-
-        binding.lifecycleOwner = this
-
         return binding.root
     }
 
-
+    override fun onStop() {
+        super.onStop()
+        detailsViewModel.onFragmentClosed()
+    }
 }

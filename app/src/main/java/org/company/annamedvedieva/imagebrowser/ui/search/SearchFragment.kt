@@ -1,19 +1,21 @@
 package org.company.annamedvedieva.imagebrowser.ui.search
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.iammert.library.ui.multisearchviewlib.MultiSearchView
 import dagger.hilt.android.AndroidEntryPoint
+
 import org.company.annamedvedieva.imagebrowser.databinding.FragmentSearchBinding
 import org.company.annamedvedieva.imagebrowser.ui.ImageGridAdapter
-import kotlin.math.log
 
 private const val TAG = "SearchFragment"
 
@@ -35,7 +37,7 @@ class SearchFragment : Fragment() {
         binding.searchViewModel = searchViewModel
 
         binding.searchRecyclerView.adapter = ImageGridAdapter(ImageGridAdapter.OnClickListener {
-
+            searchViewModel.navigateToImageDetails(it)
         })
 
         binding.lifecycleOwner = this
@@ -55,9 +57,8 @@ class SearchFragment : Fragment() {
                 Log.d(TAG, "onSearchComplete: $s")
 
                 searchQueries.add(s)
-
                 searchViewModel.loadSearchResults(s.toString())
-
+                view?.let { activity?.hideKeyboard(it) }
             }
 
             override fun onSearchItemRemoved(index: Int) {
@@ -77,6 +78,21 @@ class SearchFragment : Fragment() {
             }
         })
 
+        searchViewModel.selectedPicture.observe(viewLifecycleOwner, {
+            if (it != null) {
+                this.findNavController()
+                    .navigate(SearchFragmentDirections.actionNavigationSearchToDetailsFragment(it.id))
+                searchViewModel.doneNavigating()
+            }
+        })
+
         return binding.root
     }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
 }

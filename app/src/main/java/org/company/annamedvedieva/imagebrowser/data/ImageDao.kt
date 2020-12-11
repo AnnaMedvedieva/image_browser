@@ -17,4 +17,7 @@ interface ImageDao {
 
     @Delete
     fun deletePhoto(image: ImageItem)
+
+    @Update
+    fun updateImage(image: ImageItem)
 }

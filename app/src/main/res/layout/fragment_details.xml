@@ -39,7 +39,6 @@
             android:layout_marginTop="60dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/test"
             app:imageUrl="@{viewmodel.image.imageUrl.smallSize}" />
 
 
@@ -54,8 +53,7 @@
             android:background="@drawable/round_corners"
             android:onClick="@{() -> viewmodel.onLikeButtonClick()}"
             android:padding="2dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_favorite_24" />
+            android:scaleType="fitCenter" />
 
     </RelativeLayout>
 </layout>

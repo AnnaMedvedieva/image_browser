@@ -64,32 +64,9 @@ class HomeViewModel @ViewModelInject constructor(repository: ImageRepository) : 
 
     fun insertImage(image: ImageItem) {
         viewModelScope.launch {
-            image.isFavourite = true
             imageRepository.insertImage(image)
         }
     }
 
-    private fun deleteImage(image: ImageItem) {
-        viewModelScope.launch {
-            image.isFavourite = false
-            imageRepository.deleteImage(image)
-        }
-    }
 
-//     private fun loadRandomImagesList(){
-//         BrowserApi.retrofitService.getRandomPictures().enqueue(
-//             object : Callback<String> {
-//                 override fun onFailure(call: Call<String>, t: Throwable) {
-//                     _response.value = "Failure: " + t.message
-//                 }
-//
-//                 override fun onResponse(
-//                     call: Call<String>,
-//                     response: Response<String>
-//                 ) {
-//                     _response.value = response.body()
-//                     Log.d(TAG, "onResponse: ${_response.value.toString()}")
-//                 }
-//             })
-//     }
 }

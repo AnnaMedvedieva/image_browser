@@ -27,6 +27,10 @@ class DetailsViewModel @ViewModelInject constructor(repository: ImageRepository)
         }
     }
 
+    fun setLikeButton(image: ImageItem) {
+        _likeButton.value = image.isFavourite
+    }
+
     fun onCloseButtonClick() {
         _navigateBack.value = true
     }
@@ -37,6 +41,18 @@ class DetailsViewModel @ViewModelInject constructor(repository: ImageRepository)
 
     fun onLikeButtonClick() {
         _likeButton.value = _likeButton.value != true
+        if (_likeButton.value == true) {
+            image.value!!.isFavourite = true
+        } else image.value!!.isFavourite = false
+    }
+
+    fun onFragmentClosed() {
+        viewModelScope.launch {
+            if (image.value!!.isFavourite == true) {
+                imageRepository.updateImage(image.value!!)
+            } else imageRepository.deleteImage(image.value!!)
+        }
     }
 
 }
+

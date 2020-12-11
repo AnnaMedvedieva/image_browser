@@ -18,6 +18,8 @@ private const val TAG = "SearchViewModel"
 
 class SearchViewModel @ViewModelInject constructor(repository: ImageRepository) : ViewModel() {
 
+    val imageRepository = repository
+
     private val _imageList = MutableLiveData<List<ImageItem>>()
     val imageList: LiveData<List<ImageItem>>
         get() = _imageList
@@ -26,6 +28,10 @@ class SearchViewModel @ViewModelInject constructor(repository: ImageRepository) 
 
     val status: LiveData<BrowserApiStatus>
         get() = _status
+
+    private val _selectedPicture = MutableLiveData<ImageItem>()
+    val selectedPicture: LiveData<ImageItem>
+        get() = _selectedPicture
 
     private var resultsPage = 1
 
@@ -52,6 +58,21 @@ class SearchViewModel @ViewModelInject constructor(repository: ImageRepository) 
                 Log.d(TAG, ": ${_status.value.toString()}")
 
             }
+        }
+    }
+
+    fun navigateToImageDetails(image: ImageItem) {
+        _selectedPicture.value = image
+        insertImage(image)
+    }
+
+    fun doneNavigating() {
+        _selectedPicture.value = null
+    }
+
+    fun insertImage(image: ImageItem) {
+        viewModelScope.launch {
+            imageRepository.insertImage(image)
         }
     }
 }
