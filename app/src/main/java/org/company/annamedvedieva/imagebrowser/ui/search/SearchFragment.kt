@@ -64,7 +64,10 @@ class SearchFragment : Fragment() {
             override fun onSearchItemRemoved(index: Int) {
                 Log.d(TAG, "onSearchItemRemoved:$index ")
                 searchViewModel.clearResults()
-                searchQueries.removeAt(index)
+
+                if (searchQueries.isNotEmpty()) {
+                    searchQueries.removeAt(index)
+                }
 
                 if (searchQueries.isNotEmpty()) {
                     when (index) {

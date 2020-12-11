@@ -2,10 +2,7 @@ package org.company.annamedvedieva.imagebrowser.ui.search
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import org.company.annamedvedieva.imagebrowser.data.ImageItem
 import org.company.annamedvedieva.imagebrowser.data.ImageRepository
