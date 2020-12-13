@@ -1,6 +1,6 @@
 # Image Browser App
 
-App to browse photos from Unsplash library. 
+App to browse photos from [Unsplash](https://unsplash.com/) library. 
 User can save pictures as his favourites, explore random photos or enter a search query.
 
 ## Screenshots
