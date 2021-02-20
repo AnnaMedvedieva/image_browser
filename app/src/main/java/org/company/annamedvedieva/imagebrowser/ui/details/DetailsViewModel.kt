@@ -1,12 +1,14 @@
 package org.company.annamedvedieva.imagebrowser.ui.details
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.company.annamedvedieva.imagebrowser.data.ImageItem
 import org.company.annamedvedieva.imagebrowser.data.ImageRepository
+import javax.inject.Inject
 
-class DetailsViewModel @ViewModelInject constructor(repository: ImageRepository) : ViewModel() {
+@HiltViewModel
+class DetailsViewModel @Inject constructor(repository: ImageRepository) : ViewModel() {
 
     val imageRepository = repository
 

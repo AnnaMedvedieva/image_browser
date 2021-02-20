@@ -6,15 +6,16 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import org.company.annamedvedieva.imagebrowser.data.ImageDao
 import org.company.annamedvedieva.imagebrowser.data.ImageDatabase
+import org.company.annamedvedieva.imagebrowser.data.DefaultImageRepository
 import org.company.annamedvedieva.imagebrowser.data.ImageRepository
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Singleton
@@ -36,8 +37,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRepository(db: ImageDatabase): ImageRepository {
-        return ImageRepository(db.imageDao())
+        return DefaultImageRepository(db.imageDao())
     }
-
 
 }

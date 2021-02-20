@@ -1,19 +1,21 @@
 package org.company.annamedvedieva.imagebrowser.ui.search
 
 import android.util.Log
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.company.annamedvedieva.imagebrowser.data.ImageItem
 import org.company.annamedvedieva.imagebrowser.data.ImageRepository
 import org.company.annamedvedieva.imagebrowser.data.SearchResults
 import org.company.annamedvedieva.imagebrowser.network.BrowserApi
 import org.company.annamedvedieva.imagebrowser.network.BrowserApiStatus
+import javax.inject.Inject
 
 const val COUNT_VALUE = 30
 private const val TAG = "SearchViewModel"
 
-class SearchViewModel @ViewModelInject constructor(repository: ImageRepository) : ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor(repository: ImageRepository) : ViewModel() {
 
     val imageRepository = repository
 
@@ -26,8 +28,8 @@ class SearchViewModel @ViewModelInject constructor(repository: ImageRepository) 
     val status: LiveData<BrowserApiStatus>
         get() = _status
 
-    private val _selectedPicture = MutableLiveData<ImageItem>()
-    val selectedPicture: LiveData<ImageItem>
+    private val _selectedPicture = MutableLiveData<ImageItem?>()
+    val selectedPicture: LiveData<ImageItem?>
         get() = _selectedPicture
 
     private var resultsPage = 1

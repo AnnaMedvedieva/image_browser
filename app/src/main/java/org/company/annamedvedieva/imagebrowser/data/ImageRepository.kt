@@ -1,28 +1,16 @@
 package org.company.annamedvedieva.imagebrowser.data
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class ImageRepository @Inject constructor(private val imageDao: ImageDao) {
+interface ImageRepository {
 
-    suspend fun insertImage(image: ImageItem) = withContext(Dispatchers.IO) {
-        imageDao.insertImage(image)
-    }
+    suspend fun insertImage(image: ImageItem)
 
-    val allFavourites: Flow<List<ImageItem>> = imageDao.loadFavourites()
+    fun getAllFavourites(): Flow<List<ImageItem>>
 
-    suspend fun deleteImage(image: ImageItem) = withContext(Dispatchers.IO) {
-        imageDao.deletePhoto(image)
-    }
+    suspend fun deleteImage(image: ImageItem)
 
-    fun getImageById(imageId: String): Flow<ImageItem> {
-        return imageDao.getImageById(imageId)
-    }
+    fun getImageById(imageId: String): Flow<ImageItem>
 
-    suspend fun updateImage(image: ImageItem) = withContext(Dispatchers.IO) {
-        imageDao.updateImage(image)
-    }
-
+    suspend fun updateImage(image: ImageItem)
 }

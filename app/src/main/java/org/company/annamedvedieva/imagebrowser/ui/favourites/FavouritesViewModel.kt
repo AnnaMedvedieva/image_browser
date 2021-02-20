@@ -1,21 +1,22 @@
 package org.company.annamedvedieva.imagebrowser.ui.favourites
 
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.company.annamedvedieva.imagebrowser.data.ImageItem
 import org.company.annamedvedieva.imagebrowser.data.ImageRepository
-import org.company.annamedvedieva.imagebrowser.network.BrowserApiStatus
+import javax.inject.Inject
 
-class FavouritesViewModel @ViewModelInject constructor(repository: ImageRepository) : ViewModel() {
+@HiltViewModel
+class FavouritesViewModel @Inject constructor(repository: ImageRepository) : ViewModel() {
 
     val imageRepository = repository
 
     lateinit var imageList: LiveData<List<ImageItem>>
 
-    private val _selectedPicture = MutableLiveData<ImageItem>()
-    val selectedPicture: LiveData<ImageItem>
+    private val _selectedPicture = MutableLiveData<ImageItem?>()
+    val selectedPicture: LiveData<ImageItem?>
         get() = _selectedPicture
 
     init {
@@ -24,7 +25,7 @@ class FavouritesViewModel @ViewModelInject constructor(repository: ImageReposito
 
     private fun loadFavourites() {
         viewModelScope.launch {
-            imageList = imageRepository.allFavourites.asLiveData()
+            imageList = imageRepository.getAllFavourites().asLiveData()
         }
     }
 

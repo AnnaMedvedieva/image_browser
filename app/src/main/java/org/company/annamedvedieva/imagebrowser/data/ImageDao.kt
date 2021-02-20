@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface ImageDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertImage(image: ImageItem)
+    suspend fun insertImage(image: ImageItem)
 
     @Query("SELECT * FROM images_table")
     fun loadFavourites(): Flow<List<ImageItem>>
@@ -16,8 +16,8 @@ interface ImageDao {
     fun getImageById(id: String): Flow<ImageItem>
 
     @Delete
-    fun deletePhoto(image: ImageItem)
+    suspend fun deletePhoto(image: ImageItem)
 
     @Update
-    fun updateImage(image: ImageItem)
+    suspend fun updateImage(image: ImageItem)
 }
